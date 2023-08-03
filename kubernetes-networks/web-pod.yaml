@@ -1,0 +1,30 @@
+apiVersion: v1 # Версия API
+kind: Pod # Объект, который создаем
+metadata:
+  name: web # Название Pod
+  labels: # Метки в формате key: value
+    mypodrole: web
+spec: # Описание Pod
+  containers: # Описание контейнеров внутри Pod
+  - name: otus-nginx # Название контейнера
+    image: enegu/otus-nginx:1.1 # Образ из которого создается контейнер
+    readinessProbe:
+      httpGet:
+        path: /index.html
+        port: 80
+    livenessProbe:
+      tcpSocket:
+        port: 8000
+    volumeMounts:
+      - name: app
+        mountPath: /app
+  initContainers:
+  - name: init-myservice
+    image: busybox:1.36.1
+    command: ['sh', '-c', 'wget -O- https://tinyurl.com/otus-k8s-intro | sh']
+    volumeMounts:
+      - name: app
+        mountPath: /app
+  volumes:
+    - name: app
+      emptyDir: {}
