@@ -1,0 +1,6 @@
+resources:
+  - ../../common
+namePrefix: dev-
+commonLabels:
+  env: dev
+namespace: hipster-shop
