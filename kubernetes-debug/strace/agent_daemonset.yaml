@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   labels:
@@ -14,7 +14,7 @@ spec:
         app: debug-agent
     spec:
       containers:
-      - image: aylei/debug-agent:0.0.1
+      - image: aylei/debug-agent:v0.1.1
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
